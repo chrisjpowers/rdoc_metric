@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby -wKU
+
+require 'rubygems'
+require 'rdoc_metric'
+
+path = File.join(ARGV.first || '.', '**', '*.rb')
+
+puts RdocMetric.new(path).to_s
