@@ -25,7 +25,9 @@ class RdocMetric
   
   # The overall percentage of coverage as an integer
   def score
-    @files.inject(0) {|sum, file| sum += file.score } / @files.length
+    documented = @files.inject(0) {|sum, file| sum += file.total_documented }
+    total = @files.inject(0) {|sum, file| sum += file.total_entities }
+    ((documented.to_f / total) * 100).to_i
   end
   
   # Outputs the full listing of rdoc coverage for all parsed files.
@@ -45,6 +47,24 @@ class RdocMetric
       @attrs = []
       @constants = []
       parse_file!
+    end
+    
+    # Count of total entities that could be documented.
+    def total_entities
+      @methods.length +
+      @classes.length +
+      @modules.length +
+      @attrs.length +
+      @constants.length
+    end
+    
+    # Count of total documented entities
+    def total_documented
+      @methods.select {|b| b}.length +
+      @classes.select {|b| b}.length +
+      @modules.select {|b| b}.length +
+      @attrs.select {|b| b}.length +
+      @constants.select {|b| b}.length
     end
     
     # Percentage of rdoc coverage for this file as an Integer
