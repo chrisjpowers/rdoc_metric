@@ -18,8 +18,9 @@ class RdocMetric
   # Accepts a path that is sent to Dir.glob
   # 
   # Ex: <tt>RdocMetric.new("/apps/my_app/**/*.rb")
-  def initialize(path)
-    files = Dir.glob(path)
+  def initialize(*paths)
+    files = []
+    paths.each {|path| files.concat Dir.glob(path) }
     @files = files.map {|f| RdocFile.new(f) }
   end
   

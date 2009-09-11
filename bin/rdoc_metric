@@ -3,6 +3,8 @@
 require 'rubygems'
 require 'rdoc_metric'
 
-path = File.join(ARGV.first || '.', '**', '*.rb')
+paths = ARGV.empty? ?
+  [File.join('.', '**', '*.rb')] :
+  ARGV.map {|path| File.join(path, '**', '*.rb') }
 
-puts RdocMetric.new(path).to_s
+puts RdocMetric.new(*paths).to_s
