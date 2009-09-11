@@ -13,14 +13,18 @@ determine if documentation exists.
 
 The gem installs the <tt>rdoc_metric</tt> command line program. You
 can use it without any arguments to parse all the ruby files in the
-current directory and all subdirectories, or you can pass it a 
-specific path.
+current directory and all subdirectories, or you can pass it specific
+paths:
 
   $ rdoc_metric
 
 or
 
   $ rdoc_metric my_app/app/models # only parses .rb files in models dir
+
+or multiple dirs 
+
+  $ cd my_app && rdoc_metric app lib # parse .rb files in app and in lib
 
 So far this is a very rudimentary implementation, so please feel
 free to fork and improve!
